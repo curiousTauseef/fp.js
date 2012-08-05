@@ -131,6 +131,17 @@ FP.Decimal = function(value) {
 			return new FP.Decimal(that.value()-other.value(),that.scale());
 		},
 
+		multiply: function(other) {
+			if (typeof(other) === "number" || typeof(other) == "string") {
+				other = new FP.Decimal(other);
+			}
+			typeTest(other);
+
+			var that = this;
+
+			return new FP.Decimal(that.value()*other.value(),that.scale()+other.scale());
+		},
+
 		equals: function(other) {
 			return typeof other !== 'undefined' &&
 			        other !== null &&
