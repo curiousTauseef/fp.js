@@ -16,3 +16,5 @@ Supports fixed precision math, no more floating point imprecision:
   expect(value.multiply(0.1)).toBe(new FP.Decimal(0.123));
   expect(value.multiply(0.1).scaleTo(-1)).toBe(new FP.Decimal(1.2));
 ```
+
+Licensed APL 2.0
