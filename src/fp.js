@@ -112,6 +112,25 @@ FP.Decimal = function(value) {
 			return new FP.Decimal(that.value()+other.value(),that.scale());
 		},
 
+		subtract: function(other) {
+			if (typeof(other) === "number" || typeof(other) == "string") {
+				other = new FP.Decimal(other);
+			}
+			typeTest(other);
+
+			var that = this;
+			if (other.scale() > _scale)
+			{
+				that = this.scaleTo(other.scale());
+			}
+			else if (_scale > other.scale())
+			{
+				other = other.scaleTo(_scale);
+			}
+
+			return new FP.Decimal(that.value()-other.value(),that.scale());
+		},
+
 		equals: function(other) {
 			return typeof other !== 'undefined' &&
 			        other !== null &&

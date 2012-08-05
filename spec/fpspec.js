@@ -62,6 +62,16 @@ describe("Rounding", function() {
 		expect(fp1.value()).toBe(13);
 		expect(fp1.scale()).toBe(1);
 	});
+	it("should support override of rounding function to use floor", function() {
+		var fp1 = fp.scaleTo(1,FP.Rounding.FLOOR);
+		expect(fp1.value()).toBe(12);
+		expect(fp1.scale()).toBe(1);
+	});
+	it("should support override of rounding function to use ceiling", function() {
+		var fp1 = fp.scaleTo(2,FP.Rounding.CEILING);
+		expect(fp1.value()).toBe(126);
+		expect(fp1.scale()).toBe(2);
+	});
 });
 
 describe("Addition", function() {
@@ -91,6 +101,51 @@ describe("Addition", function() {
 		var fp2 = new FP.Decimal(2.11);
 		var sum = fp1.add(fp2);
 		expect(sum.value()).toBe(421);
+		expect(sum.scale()).toBe(2);
+	});
+
+	it("should coerce an added value for convenience", function() {
+		var fp1 = new FP.Decimal(2.1);
+		var sum = fp1.add(2.11);
+		expect(sum.value()).toBe(421);
+		expect(sum.scale()).toBe(2);
+	});
+});
+
+describe("Subtraction", function() {
+	it("should fail with a TypeError when trying to add something that's not coercable to an FP.Decimal",function() {
+		var fp1 = new FP.Decimal(2);
+		expect(function() { fp1.subtract("abc"); }).toThrow();
+	});
+
+	it("should subtract integers correctly", function() {
+		var fp1 = new FP.Decimal(2);
+		var fp2 = new FP.Decimal(2);
+		var sum = fp1.subtract(fp2);
+		expect(sum.value()).toBe(0);
+		expect(sum.scale()).toBe(0);
+	});
+
+	it("should subtract decimals of same scale correctly", function() {
+		var fp1 = new FP.Decimal(2.1);
+		var fp2 = new FP.Decimal(2.1);
+		var sum = fp1.subtract(fp2);
+		expect(sum.value()).toBe(0);
+		expect(sum.scale()).toBe(1);
+	});
+
+	it("should add decimals of different scale correctly", function() {
+		var fp1 = new FP.Decimal(2.1);
+		var fp2 = new FP.Decimal(2.11);
+		var sum = fp1.subtract(fp2);
+		expect(sum.value()).toBe(-1);
+		expect(sum.scale()).toBe(2);
+	});
+
+	it("should coerce an added value for convenience", function() {
+		var fp1 = new FP.Decimal(2.1);
+		var sum = fp1.subtract(2.11);
+		expect(sum.value()).toBe(-1);
 		expect(sum.scale()).toBe(2);
 	});
 });
