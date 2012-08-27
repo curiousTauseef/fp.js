@@ -1,5 +1,7 @@
 # fp.js: A Fixed-precision math javascript library
 
+[![Build Status](https://secure.travis-ci.org/scullxbones/fp.js.png)](http://travis-ci.org/scullxbones/fp.js)
+
 Currently work-in-process, not ready for consumption
 
 ### Usage:
