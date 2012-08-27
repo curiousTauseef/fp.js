@@ -1,3 +1,7 @@
+if (typeof define !== 'function') { var define = require('amdefine')(module) }
+
+define(["../lib/fp.js"], function(FP) {
+
 describe("Constructors", function() {
 	it("should support construction by value and scale", function() {
 		var fp = new FP.Decimal(1,2);
@@ -186,4 +190,5 @@ describe("Multiplication", function() {
 		expect(result.value()).toBe(4431);
 		expect(result.scale()).toBe(3);
 	});
+});
 });
