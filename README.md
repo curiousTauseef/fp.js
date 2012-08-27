@@ -1,4 +1,4 @@
-# fp.js: A Fixed-precision math javascript library
+# fp.js: A floating-point decimal math javascript library
 
 [![Build Status](https://secure.travis-ci.org/scullxbones/fp.js.png)](http://travis-ci.org/scullxbones/fp.js)
 
@@ -6,9 +6,9 @@ Currently work-in-process, not ready for consumption
 
 ### Usage:
 
-Supports fixed precision math, no more floating point imprecision:
+Supports decimal math, no more base-2 imprecision:
 
-1.23 * 10^1 = 1.2300000000001
+1.23 * 10 = 12.300000000001
 
 ```javascript
   var value = new FP.Decimal(1.23);
