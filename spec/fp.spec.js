@@ -155,7 +155,7 @@ describe("Subtraction", function() {
 });
 
 describe("Multiplication", function() {
-	it("should fail with a TypeError when trying to add something that's not coercable to an FP.Decimal",function() {
+	it("should fail with a TypeError when trying to multiply something that's not coercable to an FP.Decimal",function() {
 		var fp1 = new FP.Decimal(2);
 		expect(function() { fp1.multiply("abc"); }).toThrow();
 	});
@@ -191,4 +191,58 @@ describe("Multiplication", function() {
 		expect(result.scale()).toBe(3);
 	});
 });
+
+describe("Division", function() {
+	it("should fail with a TypeError when trying to divide something that's not coercable to an FP.Decimal",function() {
+		var fp1 = new FP.Decimal(2);
+		expect(function() { fp1.divide("abc"); }).toThrow();
+	});
+
+	it("should divide integers correctly", function() {
+		var fp1 = new FP.Decimal(2);
+		var fp2 = new FP.Decimal(2);
+		var result = fp1.divide(fp2);
+		expect(result.value()).toBe(1);
+		expect(result.scale()).toBe(0);
+
+		fp2 = new FP.Decimal(16);
+		result = fp2.divide(fp1);
+		expect(result.value()).toBe(8);
+		expect(result.scale()).toBe(0);
+	});
+
+	it("should divide decimals of same scale correctly", function() {
+		var fp1 = new FP.Decimal(2.1);
+		var fp2 = new FP.Decimal(2.1);
+		var result = fp1.divide(fp2);
+		expect(result.value()).toBe(10);
+		expect(result.scale()).toBe(1);
+
+		fp1 = new FP.Decimal(6.3);
+		result = fp1.divide(fp2);
+		expect(result.value()).toBe(30);
+		expect(result.scale()).toBe(1);
+	});
+
+	it("should divide decimals of different scale correctly", function() {
+		var fp1 = new FP.Decimal(2.1);
+		var fp2 = new FP.Decimal(2.11);
+		var result = fp1.divide(fp2);
+		expect(result.value()).toBe(100);
+		expect(result.scale()).toBe(2);
+
+		fp2 = new FP.Decimal(1.05);
+		result = fp1.divide(fp2);
+		expect(result.value()).toBe(200);
+		expect(result.scale()).toBe(2);
+	});
+
+	it("should coerce a multiplied value for convenience", function() {
+		var fp1 = new FP.Decimal(2.1);
+		var result = fp1.divide(2.11);
+		expect(result.value()).toBe(100);
+		expect(result.scale()).toBe(2);
+	});
+});
+
 });
